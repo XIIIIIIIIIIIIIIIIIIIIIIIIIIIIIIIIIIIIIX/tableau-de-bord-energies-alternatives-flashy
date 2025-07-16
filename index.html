@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<title>E² Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --c0:#000;
+  --c1:#00ffd5;
+  --c2:#ff00ff;
+  --c3:#adff2f;
+  --c4:#ff8100;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#020204;
+  font-family:'Orbitron',sans-serif;
+  color:#eee;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.dashboard{
+  width:90vw;
+  max-width:1200px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2rem;
+  padding:40px 20px;
+}
+.card{
+  background:linear-gradient(135deg,#111 0%,#0a0a0a 100%);
+  border:1px solid var(--c1);
+  border-radius:20px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  box-shadow:0 0 15px var(--c1);
+  transition:transform .5s ease, box-shadow .5s ease;
+}
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px var(--c1);
+}
+.card h2{
+  font-size:1.2rem;
+  margin-bottom:10px;
+  color:var(--c1);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.icon{
+  width:60px;
+  height:60px;
+  margin:10px 0;
+  animation:pulse 2s infinite;
+}
+svg{overflow:visible}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.value{
+  font-size:2.2rem;
+  font-weight:900;
+  margin:10px 0;
+}
+.unit{font-size:.9rem;color:#aaa}
+.graph{height:120px;margin-top:15px;width:100%}
+.grid-line{
+  fill:none;
+  stroke:#444;
+  stroke-width:.2;
+}
+.plot-line{
+  fill:none;
+  stroke-width:3;
+  stroke-linecap:round;
+  transition:d 1s ease;
+}
+.plot-dot{
+  transition:cy .8s ease;
+}
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- Solaire ----------------------------------------------------------------->
+  <div class="card" id="solar">
+    <h2>Solaire</h2>
+    <svg class="icon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="20" fill="#00ffd5" stroke="#00ffd5"/>
+      <g stroke="#00ffd5">
+        <line x1="50" y1="30" x2="50" y2="15" stroke-width="3"/>
+        <line x1="50" y1="85" x2="50" y2="70" stroke-width="3"/>
+        <line x1="30" y1="50" x2="15" y2="50" stroke-width="3"/>
+        <line x1="85" y1="50" x2="70" y2="50" stroke-width="3"/>
+        <line x1="37" y1="37" x2="26" y2="26" stroke-width="3"/>
+        <line x1="74" y1="74" x2="63" y2="63" stroke-width="3"/>
+        <line x1="37" y1="63" x2="26" y2="74" stroke-width="3"/>
+        <line x1="74" y1="26" x2="63" y2="37" stroke-width="3"/>
+      </g>
+    </svg>
+    <div class="value">334 <span class="unit">TWh</span></div>
+    <svg class="graph" viewBox="0 0 250 120">
+      <g class="grid"></g>
+      <polyline class="plot-line" stroke="#00ffd5"/>
+      <circle class="plot-dot" r="3" fill="#00ffd5"/>
+    </svg>
+  </div>
+
+  <!-- Lunaire ----------------------------------------------------------------->
+  <div class="card" id="lunar">
+    <h2>Lunaire</h2>
+    <svg class="icon" viewBox="0 0 100 100">
+      <path d="M50 10 A30 30 0 1 0 50 80 A40 40 0 0 1 50 10z" fill="#ff00ff"/>
+    </svg>
+    <div class="value">201 <span class="unit">TWh</span></div>
+    <svg class="graph" viewBox="0 0 250 120">
+      <g class="grid"></g>
+      <polyline class="plot-line" stroke="#ff00mm"/>
+      <circle class="plot-dot" r="3" fill="#ff00ff"/>
+    </svg>
+  </div>
+
+  <!-- Magique ----------------------------------------------------------------->
+  <div class="card" id="magic">
+    <h2>Magique</h2>
+    <svg class="icon" viewBox="0 0 100 100">
+      <polygon points="50,15 58,35 78,35 62,50 70,70 50,60 30,70 38,50 22,35 42,35" fill="#adff2f"/>
+    </svg>
+    <div class="value">512 <span class="unit">TWh</span></div>
+    <svg class="graph" viewBox="0 0 250 120">
+      <g class="grid"></g>
+      <polyline class="plot-line" stroke="#adff2f"/>
+      <circle class="plot-dot" r="3" fill="#adff2f"/>
+    </svg>
+  </div>
+
+  <!-- Ventus ------------------------------------------------------------------>
+  <div class="card" id="ventus">
+    <h2>Ventus</h2>
+    <svg class="icon" viewBox="0 0 100 100">
+      <line x1="30" y1="30" x2="70" y2="30" stroke="#ff8100" stroke-width="5"/>
+      <line x1="20" y1="45" x2="80" y2="45" stroke="#ff8100" stroke-width="5"/>
+      <line x1="25" y1="60" x2="75" y2="60" stroke="#ff8100" stroke-width="5"/>
+    </svg>
+    <div class="value">127 <span class="unit">TWh</span></div>
+    <svg class="graph" viewBox="0 0 250 120">
+      <g class="grid"></g>
+      <polyline class="plot-line" stroke="#ff8100"/>
+      <circle class="plot-dot" r="3" fill="#ff8100"/>
+    </svg>
+  </div>
+
+</div>
+
+<script>
+(()=>{
+  const randomData = () =>
+    Array.from({length:8},(_) => Math.random()*80+20);
+
+  const colors = ['#00ffd5','#ff00ff','#adff2f','#ff8100'];
+  const idList = ['solar','lunar','magic','ventus'];
+
+  idList.forEach((id,i)=>{
+    const card = document.getElementById(id);
+    const graph = card.querySelector('.graph');
+    const svgNS = "http://www.w3.org/2000/svg";
+    const data = randomData();
+
+    // Grid
+    const grid = card.querySelector('.grid');
+    const step = 30;
+    new Array(3).fill(0).forEach((_,y)=>{
+      const hLine = document.createElementNS(svgNS,'line');
+      hLine.setAttribute('x1',0);
+      hLine.setAttribute('y1',y*step+30);
+      hLine.setAttribute('x2',250);
+      hLine.setAttribute('y2',y*step+30);
+      hLine.setAttribute('class','grid-line');
+      grid.appendChild(hLine);
+    });
+    new Array(8).fill(0).forEach((_,x)=>{
+      const vLine = document.createElementNS(svgNS,'line');
+      vLine.setAttribute('x1',x*30+15);
+      vLine.setAttribute('y1',0);
+      vLine.setAttribute('x2',x*30+15);
+      vLine.setAttribute('y2',120);
+      vLine.setAttribute('class','grid-line');
+      grid.appendChild(vLine);
+    });
+
+    // Line
+    const polyline = graph.querySelector('.plot-line');
+    let pts = data.map((v,j)=> [j*30+15, 120-v-20]).join(' ');
+    polyline.setAttribute('points', pts);
+    polyline.setAttribute('stroke', colors[i]);
+
+    // Dot
+    const dot = graph.querySelector('.plot-dot');
+    const last = data.length-1;
+    dot.setAttribute('cx', last*30+15);
+    dot.setAttribute('cy', 120-data[last]-20);
+    dot.setAttribute('fill', colors[i]);
+
+    // Real-time animation
+    setInterval(()=>{
+      data.shift();
+      data.push(Math.random()*80+20);
+      pts = data.map((v,j)=> [j*30+15, 120-v-20]).join(' ');
+      polyline.setAttribute('points', pts);
+      dot.setAttribute('cx', last*30+15);
+      dot.setAttribute('cy', 120-data[last]-20);
+      // Smooth fade value change
+      const valEl = card.querySelector('.value');
+      valEl.style.opacity = 0.3;
+      setTimeout(()=>{
+        valEl.innerHTML = Math.round(data[data.length-1]*4) + ' <span class="unit">TWh</span>';
+        valEl.style.opacity = 1;
+      },250);
+    },2800);
+  });
+})();
+</script>
+</body>
+</html>
